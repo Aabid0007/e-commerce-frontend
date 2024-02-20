@@ -1,0 +1,59 @@
+.cartSection {
+    padding: 20px;
+    display: flex;
+justify-content: space-around;}
+
+.cartPage {
+    background-color: #fff;
+    padding: 18px;
+    max-width: 65%;
+    flex: 1;
+}
+
+.cartContent {
+    border-bottom: 1px solid gray;
+}
+
+.cartPage h2 {
+    padding-bottom: 15px;
+}
+
+.cartCard {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.cartImage {
+    max-width: 150px;
+}
+
+.tableHead {
+    text-align: center;
+}
+
+.tableTd {
+    text-align: center;
+}
+
+.cartHeading {
+    padding-bottom: 15px;
+}
+.productCheckoutSection {
+    max-width: 20%;
+    flex: 1;
+    text-align: center;
+}
+.totalPrice {
+    background-color: #fff;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+.productCheckout {
+    background-color: #f7ca00;
+    border: none;
+    padding: 10px;
+    border-radius: 9px;
+}

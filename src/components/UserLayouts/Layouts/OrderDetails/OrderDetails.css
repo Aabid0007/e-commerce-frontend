@@ -1,0 +1,84 @@
+.orderSummarySection {
+    padding: 33px 20px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.orderDetails {
+    padding: 20px;
+    display: flex;
+    gap: 45px;
+   
+}
+.orderSummaryContent{
+    width: 70%;
+    border-radius: 15px;
+    padding: 20px;
+    background-color: #fff;
+}
+.orderSummaryHeading{
+    padding: 0 20px;
+}
+.orderedImg {
+    width: 120px;
+    height: 78px;
+}
+
+.orderedProducts {
+    width: 395px;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.orderedProduct {
+    padding: 15px;
+    display: flex;
+    gap: 17px;
+    background-color: #fff;
+    border-radius: 15px;
+    border: 1px solid #adb5bd;
+
+}
+
+.orderedProductDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+}
+.orderedProductSub{
+    display: flex;
+    justify-content: space-between;
+}
+.orderedSummary{
+    width: 50%;
+    background-color: #fff;
+    border-radius: 15px;
+    border: 1px solid #adb5bd;
+
+}
+.summaryDetails{
+    padding: 15px;
+}
+.summaryHead{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    border-bottom: 1px solid #adb5bd;
+    padding: 10px;
+}
+.shippingAddress{
+    display: flex;
+    gap: 5px;
+}
+.summaryStatus{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 10px;
+}
+.orderSummaryInvoice{
+    display: flex;
+    justify-content: flex-end;
+}

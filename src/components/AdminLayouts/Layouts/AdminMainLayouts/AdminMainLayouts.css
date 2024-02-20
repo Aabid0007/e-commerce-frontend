@@ -1,0 +1,12 @@
+.adminSideBar{
+    min-height: 100vh;
+    background-color: grey;
+}
+.pageContent{
+    display: flex;
+}
+.tableBody{
+    flex: 1;
+    padding: 19px 40px;
+    background-color: #f8f9fa
+}

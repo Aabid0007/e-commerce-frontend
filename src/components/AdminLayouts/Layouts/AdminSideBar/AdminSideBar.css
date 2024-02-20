@@ -1,0 +1,33 @@
+.sideBarSection li{
+    list-style-type: none;
+    padding: 17px 80px 17px 10px;
+    font-size: 18px;
+    font-weight: 500;
+    border-radius: 8px;
+}
+.LogoutBtn {
+    border: none;
+    background: none;
+    padding: 0;
+    text-align: start;
+    padding: 17px 80px 17px 10px;
+    font-size: 18px;
+    font-weight: 500;
+    border-radius: 8px;
+}
+.sideBarSection{
+    padding: 20px 25px 0 15px;
+}
+.sideBarSection ul{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.sideBarSection li:hover{
+    background-color: #ffff;
+}
+.LogoutBtn:hover{
+    background-color: #ffff;
+    transition: 10ms;
+
+}

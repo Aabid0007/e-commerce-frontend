@@ -1,0 +1,53 @@
+.Heading{
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+.headerList{
+    flex: 1;
+}
+.headerList ul{
+    display: flex;
+    gap: 20px;
+}
+.headerList li{
+    list-style-type: none;
+    color: black;
+    font-size: 17px;
+    font-weight: 500;
+}
+.headerList li:hover{
+    color: #FD8F5F;
+}
+.productCart{
+    color: black;
+    cursor: pointer;
+}
+.CartValue{
+    padding: 1px 6px;
+    background: #FD8F5F;
+    border-radius: 100px;
+    color: #fff;
+}
+.yourOrders{
+    color: black;
+    font-size: 17px;
+    font-weight: 500;
+    cursor: pointer;
+}
+.yourOrders:hover{
+    color: #FD8F5F;
+}
+.logoutBtn{
+    border: none;
+    background: none;
+    padding: 0;
+    text-align: start;
+    font-size: 18px;
+    font-weight: 500;
+    color: black;
+    cursor: pointer;
+}
+.logoutBtn:hover{
+    color: #FD8F5F;
+}
