@@ -1,16 +1,11 @@
-import React, { useState } from 'react'
+import React from 'react'
 import AdminHeader from '../AdminHeader/AdminHeader'
 import AdminSideBar from '../AdminSideBar/AdminSideBar'
 import "./AdminMainLayouts.css"
 import AdminCategory from '../AdminCategory/AdminCategory'
-import AdminProduct from '../AdminProduct/AdminProduct'
-import AdminOrder from '../AdminOrder/AdminOrder'
-const AdminMainLayouts = () => {
-    const [selectedOption, setSelectedOption] = useState('categories');
 
-    const handleSidebarClick = (option) => {
-        setSelectedOption(option);
-    };
+const AdminMainLayouts = () => {
+
     return (
         <div className='MainPage'>
             <div className='container'>
@@ -22,12 +17,10 @@ const AdminMainLayouts = () => {
                 <div className='container'>
                     <div className="pageContent">
                         <div className='adminSideBar'>
-                            <AdminSideBar onSidebarClick={handleSidebarClick} />
+                            <AdminSideBar />
                         </div>
                         <div className='tableBody'>
-                            {selectedOption === 'categories' && <AdminCategory />}
-                            {selectedOption === 'products' && <AdminProduct />}
-                            {selectedOption === 'orders' && <AdminOrder />}
+                            <AdminCategory />
                         </div>
                     </div>
                 </div>

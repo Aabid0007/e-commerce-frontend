@@ -19,11 +19,11 @@ const EditProduct = ({ editModalClose, productId }) => {
         const actionResult = await dispatch(getProductById(productId));
         const productData = actionResult.payload;
         if (productData) {
-          setValue("name", productData.name || '');
-          setValue("description", productData.description || '');
-          setValue("price", productData.price || '');
-          setSelectedCategory(productData.category);
-          const previews = productData.images.map(image => `http://localhost:5001/${image}`);
+          setValue("name", productData.product.name || '');
+          setValue("description", productData.product.description || '');
+          setValue("price", productData.product.price || '');
+          setSelectedCategory(productData.product.category);
+          const previews = productData.product.images.map(image => `http://localhost:5001/${image}`);
           setImagePreviews(previews);
         }
       } catch (error) {

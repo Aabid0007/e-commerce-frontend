@@ -30,13 +30,21 @@ export const getAllOrders = createAsyncThunk('getAllOrders', async () => {
 export const getOrderById = createAsyncThunk('getOrderById', async (id) => {
     try {
         const response = await axios.get(`http://localhost:5001/api/order/${id}`);
-        console.log(response.data);
         return response.data;
     } catch (error) {
         return error;
     }
 }
 );
+
+export const getCustomers = createAsyncThunk('getCustomers', async () => {
+    try {
+        const response = await axios.get(`http://localhost:5001/api/users`);
+        return response.data;
+    } catch (error) {
+        console.log(error.message);
+    }
+})
 
 const adminSlice = createSlice({
     name: 'admin',
@@ -45,6 +53,7 @@ const adminSlice = createSlice({
         loading: false,
         orders: [],
         orderById:[],
+        Customers:[],
     },
     reducers: {
         logout: (state) => {
@@ -84,6 +93,12 @@ const adminSlice = createSlice({
             .addCase(getOrderById.fulfilled, (state, action) => {
                 state.loading = false;
                 state.orderById = action.payload.orderById;
+            })
+
+            // get Customers
+            .addCase(getCustomers.fulfilled, (state, action) => {
+                state.loading = false;
+                state.Customers = action.payload.user;
             })
     },
 });

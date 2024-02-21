@@ -2,9 +2,12 @@
     padding: 20px;
     display: grid;
 }
+.AdminOrderTable{
+    cursor: pointer;
+}
 .AdminOrderTable i{
     color: #1a8754;
-    cursor: pointer;
+    
 }
 .AdminOrderStatus{
     background-color: #1a8754;

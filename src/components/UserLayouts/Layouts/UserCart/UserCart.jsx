@@ -35,7 +35,6 @@ const UserCart = () => {
     }
 
     const handleQuantityUpdate = async (productId, action) => {
-        console.log(userCarts);
         await dispatch(updateQuantity({ userId, productId, action }));
         dispatch(getAllCarts(userId));
     }
@@ -66,7 +65,7 @@ const UserCart = () => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {Array.isArray(userCarts) && userCarts?.map((cart) => (
+                                        {userCarts[0] && userCarts?.map((cart) => (
                                             cart.items.map((item, index) => (
                                                 <tr key={`${cart._id}_${index}`}>
                                                     <td className='cartCard'>
@@ -75,14 +74,14 @@ const UserCart = () => {
                                                             <div className='cartHeading'>
                                                                 <h3>{item.productDetails.name}</h3>
                                                             </div>
-                                                            <div>
+                                                            <>
                                                                 {item.productDetails.description}
-                                                            </div>
+                                                            </>
                                                         </div>
                                                     </td>
                                                     <td className='tableTd'>
                                                         <div className='tableTd'>
-                                                            <button onClick={() => handleQuantityUpdate(item.productDetails._id, 'decrement')}>-</button>
+                                                            {item.quantity > 1 && <button onClick={() => handleQuantityUpdate(item.productDetails._id, 'decrement')}>-</button>}
                                                             {item.quantity}
                                                             <button onClick={() => handleQuantityUpdate(item.productDetails._id, 'increment')}>+</button>
                                                         </div>
@@ -99,10 +98,7 @@ const UserCart = () => {
                                     </tbody>
                                 </table>
                                 {totalQuantity === 0 && <span className='message'>Your Cart is empty</span>}
-
-                                {
-                                    error && <div className="error"> {error} </div>
-                                }
+                                { error && <div className="error"> {error} </div> }
                             </div>
                         </div>
                         {totalQuantity ? <div className='productCheckoutSection'>

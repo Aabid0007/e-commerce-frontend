@@ -1,0 +1,12 @@
+.productsDetails{
+    min-height: 100vh;
+}
+.productsSection {
+    padding: 20px;
+    display: flex;
+}
+.productsContentSection{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}

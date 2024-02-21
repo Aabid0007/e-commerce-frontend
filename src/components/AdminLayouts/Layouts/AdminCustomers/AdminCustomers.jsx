@@ -1,27 +1,16 @@
 import React, { useEffect } from 'react'
-import './AdminOrder.css'
+import AdminSideBar from '../AdminSideBar/AdminSideBar'
+import AdminHeader from '../AdminHeader/AdminHeader'
 import { useDispatch, useSelector } from 'react-redux'
-import { getAllOrders } from '../../../../Redux/Slices/Admin.Slice';
-import { useNavigate } from 'react-router-dom';
-import AdminSideBar from '../AdminSideBar/AdminSideBar';
-import AdminHeader from '../AdminHeader/AdminHeader';
-const AdminOrder = () => {
+import { getCustomers } from '../../../../Redux/Slices/Admin.Slice'
+
+const AdminCustomers = () => {
+    const { Customers } = useSelector((state) => state.admin);
     const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const { orders } = useSelector((state) => state.admin);
-
-
+    
     useEffect(() => {
-        dispatch(getAllOrders())
-    }, [dispatch])
-    const formatDate = (dateString) => {
-        const date = new Date(dateString);
-        return date.toLocaleDateString('en-US');
-    };
-
-    const handleOrderClick = (orderId) => {
-        navigate('/admin/user-order', { state: { orderId } })
-    }
+        dispatch(getCustomers())
+    }, [dispatch]);
 
     return (
         <div className='MainPage'>
@@ -39,7 +28,7 @@ const AdminOrder = () => {
                         <div className='tableBody'>
                             <div className='produtcPage'>
                                 <div className='productHeading'>
-                                    <h2>Orders</h2>
+                                    <h2>Customers</h2>
                                 </div>
                                 <div className='ProductSection'>
                                     <div className='CardHeader'>
@@ -50,26 +39,20 @@ const AdminOrder = () => {
                                             <thead>
                                                 <tr>
                                                     <th>Sl.No</th>
-                                                    <th>Order ID</th>
+                                                    <th>Customer ID</th>
+                                                    <th>Username</th>
                                                     <th>Email</th>
-                                                    <th>Total</th>
-                                                    <th>Date</th>
-                                                    <th>Status</th>
-                                                    <th>Action</th>
+                                                    <th>phone</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {orders && orders?.map((order, index) => (
-                                                    <tr key={order._id}>
+                                                {Customers?.map((customer,index) => (
+                                                    <tr key={customer._id}>
                                                         <td>{index + 1}</td>
-                                                        <td>{order._id}</td>
-                                                        <td>{order.customerEmail}</td>
-                                                        <td>{`$${order.totalAmount}`}</td>
-                                                        <td>{formatDate(order.orderDate)}</td>
-                                                        <td ><span className='AdminOrderStatus'>{order.orderStatus}</span></td>
-                                                        <td className='AdminOrderTable' onClick={() => handleOrderClick(order._id)}>
-                                                            <i className="fa-solid fa-eye"></i>
-                                                        </td>
+                                                        <td>{customer._id}</td>
+                                                        <td>{customer.username}</td>
+                                                        <td>{customer.email}</td>
+                                                        <td>{customer.phone}</td>
                                                     </tr>
                                                 ))}
                                             </tbody>
@@ -82,8 +65,7 @@ const AdminOrder = () => {
                 </div>
             </div>
         </div>
-
     )
 }
 
-export default AdminOrder
+export default AdminCustomers

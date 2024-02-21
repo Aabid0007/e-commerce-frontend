@@ -16,10 +16,17 @@
     border-radius: 5px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
+    width: 360px;
+    height: 225px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 13px;
 }
 
 .tick-container {
-    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
 }
 
 .tick-icon {

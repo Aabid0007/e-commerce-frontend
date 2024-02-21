@@ -1,12 +1,13 @@
 .productHeading {
     display: flex;
     justify-content: space-between;
-    padding: 26px 0 20px;
+    padding: 0 0 20px;
 }
 
 .productHeading h2 {
     font-size: 33px;
     font-weight: 500;
+    color: #212529;
 }
 
 .addBtn.product {

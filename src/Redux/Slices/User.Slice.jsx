@@ -20,8 +20,7 @@ export const userRegister = createAsyncThunk('userRegister', async (data, { reje
 // userLogin
 export const userLogin = createAsyncThunk('userLogin', async (data, { rejectWithValue }) => {
     try {
-        const response = await axios.post(`http://localhost:5001/api/users/login`, data);
-        Cookies.set('userToken', response.data.Token);
+        const response = await axios.post(`http://localhost:5001/api/users/login`, data,{ withCredentials: true});
         Cookies.set('userId', response.data.userId);
         return response.data;
     } catch (error) {
@@ -106,7 +105,6 @@ export const retrieveCheckoutSession = createAsyncThunk('retrieveCheckoutSession
 export const getUserOrder = createAsyncThunk('getUserOrder', async (id) => {
     try {
         const response = await axios.get(`http://localhost:5001/api/order/details/${id}`);
-        console.log(response.data);
         return response.data;
     } catch (error) {
         console.log(error.message);
@@ -238,7 +236,7 @@ const userSlice = createSlice({
             })
             .addCase(getUserOrder.fulfilled, (state, action) => {
                 state.loading = true;
-                state.UserOrders = action.payload.order;
+                state.UserOrders = action.payload.UserOrders;
             })
             .addCase(getUserOrder.rejected, (state, action) => {
                 state.loading = false;

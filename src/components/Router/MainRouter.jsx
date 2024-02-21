@@ -14,18 +14,22 @@ import CheckoutSuccess from '../UserLayouts/Layouts/CheckoutSuccess/CheckoutSucc
 import OrderDetails from '../UserLayouts/Layouts/OrderDetails/OrderDetails';
 import UserOrder from '../AdminLayouts/Layouts/AdminOrder/UserOrder/UserOrder';
 import UserOrdersDetails from '../UserLayouts/Layouts/UserOrdersDetails/UserOrdersDetails';
+import AdminProduct from '../AdminLayouts/Layouts/AdminProduct/AdminProduct';
+import AdminOrder from '../AdminLayouts/Layouts/AdminOrder/AdminOrder';
+import AdminCustomers from '../AdminLayouts/Layouts/AdminCustomers/AdminCustomers';
+import UserProductDetails from '../UserLayouts/Layouts/UserProductDetails/UserProductDetails';
 const MainRouter = () => {
   const { token } = useSelector((state) => state.admin);
   const { Token } = useSelector((state) => state.user);
 
   const isLoggedIn = () => {
-
     const adminToken = Cookies.get('adminToken');
     if (!adminToken && !token) {
       return false;
     }
     return true;
   };
+  
   const isLoggedInUser = () => {
     const userToken = Cookies.get('userToken');
     if (!userToken && !Token) {
@@ -41,11 +45,15 @@ const MainRouter = () => {
         <Route path='/admin/login' element={<AdminLogin />} />
         <Route path='/admin' element={isLoggedIn() ? <AdminMainLayouts /> : <Navigate to="/admin/login" />} />
         <Route path='/admin/category/product' element={<CategoryProductList />} />
+        <Route path='/admin/product' element={< AdminProduct />} />
+        <Route path='/admin/order' element={<AdminOrder />} />
         <Route path='/admin/user-order' element={<UserOrder />} />
+        <Route path='/admin/customers' element={<AdminCustomers />} />
         <Route path='/user/register' element={<UserRegister />} />
         <Route path='/user/login' element={<UserLogin />} />
         <Route path='/user' element={isLoggedInUser() ? <UserMainLayouts /> : <Navigate to='/user/login' />} />
         <Route path='/user/category/product' element={isLoggedInUser() ? <UserCategoryList /> : <Navigate to='/user/login' />} />
+        <Route path='/user/category/product-details' element={<UserProductDetails />} />
         <Route path='/user/category/product/cart' element={isLoggedInUser() ? <UserCart /> : <Navigate to='/user/login' />} />
         <Route path='/user/orders' element={isLoggedInUser() ? <UserOrdersDetails /> : <Navigate to='/user/login' />} />
         <Route path='/user/category/product/checkout-success' element={<CheckoutSuccess />} />

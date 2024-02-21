@@ -30,6 +30,9 @@ const UserCategoryList = () => {
     const handleAddedCart = () => {
         navigate('/user/category/product/cart')
     }
+    const handleProductDetails = (productId) => {
+        navigate('/user/category/product-details', {state: { productId }});
+    }
 
     return (
         <div className='PageSection'>
@@ -37,44 +40,42 @@ const UserCategoryList = () => {
                 <div className='MainHeading'>
                     <UserHeader />
                 </div>
-                <div className='categoryContent'>
-                    <div className='CategorySection'>
-                        <div className='productDetails'>
-                            {product?.map((product, index) => (
-                                <div className='productCard' key={product._id}>
-                                    <div className='productCardImg'>
-                                        <img src={`http://localhost:5001/${product.images[0]}`} alt={index} />
-                                    </div>
-                                    <div className='cardContent'>
-                                        <h3>{product.name}</h3>
-                                        <p>{product.description}</p>
-                                        <div className='price'>${product.price}</div>
+                <div className='CategorySection'>
+                    <div className='productDetails'>
+                        {product?.map((product, index) => (
+                            <div className='productCard' key={product._id}>
+                                <div className='productCardImg'>
+                                    <img src={`http://localhost:5001/${product.images[0]}`} alt={index} onClick={() => handleProductDetails(product._id)} />
+                                </div>
+                                <div className='cardContent'>
+                                    <h3>{product.name}</h3>
+                                    <p>{product.description}</p>
+                                    <div className='price'>${product.price}</div>
 
-                                        <div className='productAction'>
-                                            {!addedToCart[product._id] ? (
-                                                <button
-                                                    className='productCartBtn'
-                                                    onClick={() => handleAddToCart(product._id)}
-                                                >
-                                                    Add to Cart
-                                                </button>
-                                            ) : (
-                                                <button className='productCartBtn' onClick={() => handleAddedCart()} >
-                                                    Added to Cart
-                                                </button>
-                                            )}
-                                        </div>
+                                    <div className='productAction'>
+                                        {!addedToCart[product._id] ? (
+                                            <button
+                                                className='productCartBtn'
+                                                onClick={() => handleAddToCart(product._id)}
+                                            >
+                                                Add to Cart
+                                            </button>
+                                        ) : (
+                                            <button className='productCartBtn' onClick={() => handleAddedCart()} >
+                                                Added to Cart
+                                            </button>
+                                        )}
                                     </div>
                                 </div>
-                            ))}
-                            {product.length === 0 && <p className='NoProduct'>No Product found</p>}
-                            {
-                                loading && <div className="loading"> Loading ... </div>
-                            }
-                            {
-                                error && <div className="error"> {error} </div>
-                            }
-                        </div>
+                            </div>
+                        ))}
+                        {product.length === 0 && <p className='NoProduct'>No Product found</p>}
+                        {
+                            loading && <div className="loading"> Loading ... </div>
+                        }
+                        {
+                            error && <div className="error"> {error} </div>
+                        }
                     </div>
                 </div>
             </div>

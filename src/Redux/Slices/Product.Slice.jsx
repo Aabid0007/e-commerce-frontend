@@ -62,6 +62,7 @@ const productSlice = createSlice({
         error: '',
         loading: false,
         categoryId: '',
+        productById: [],
     },
     reducers: {
         updateCategoryId(state, action) {
@@ -99,6 +100,7 @@ const productSlice = createSlice({
         // product Id fetching
         .addCase(getProductById.fulfilled, (state, action) => {
             state.loading = false;
+            state.productById = action.payload.product;
         })
 
         // update product

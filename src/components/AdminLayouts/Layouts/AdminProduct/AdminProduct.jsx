@@ -6,6 +6,8 @@ import AddProduct from './AddProduct/AddProduct'
 import DeleteProduct from './DeleteProduct/DeleteProduct'
 import EditProduct from './EditProduct/EditProduct'
 import { getCategories } from '../../../../Redux/Slices/Category.Slice'
+import AdminSideBar from '../AdminSideBar/AdminSideBar'
+import AdminHeader from '../AdminHeader/AdminHeader'
 
 const AdminProduct = () => {
   const { product, loading, error, categoryId } = useSelector((state) => state.product);
@@ -32,63 +34,83 @@ const AdminProduct = () => {
 
 
   return (
-    <div className='produtcPage'>
-      <div className='productHeading'>
-        <h2>Products</h2>
-        <button className='addBtn product' onClick={() => setAddModal(true)}>Create new</button>
-      </div>
-      <div className='ProductSection'>
-        <div className='CardHeader'>
-          <input type="text" placeholder='Search...' />
-          <select name="category" id="category" value={selectedCategory} onChange={handleCategoryChange}  >
-            <option value=''>All category</option>
-            {category && category.map((category) => (
-              <option key={category._id} value={category._id}>{category.name}</option>
-            )) }
-          </select>
+    <div className='MainPage'>
+      <div className='container'>
+        <div className='Main_Heading'>
+          <AdminHeader />
         </div>
-        <div className='productDetails'>
-          {!loading && Array.isArray(product) && product.length === 0 && selectedCategory && (
-            <div className="noData">No products available for the selected category</div>
-          )}
-          {Array.isArray(product) && product?.map((products, index) => (
-            <div className='productCard' key={products._id}>
-              <div className='productCardImg'>
-                <img src={`http://localhost:5001/${products.images[0]}`} alt="" />
-              </div>
-              <div className='cardContent'>
-                <h3>{products.name}</h3>
-                <p>{products.description}</p>
-                <div className='price'>${products.price}</div>
-                <div className='productAction'>
-                  <button className='productBtn edit' onClick={() => setEditModal(products._id)} >
-                    <i className="fa-solid fa-pen"></i>
-                  </button>
-                  <button className='productBtn delete' onClick={() => setDeleteModal(products._id)}>
-                    <i className="fa-regular fa-trash-can"></i>
-                  </button>
+      </div>
+      <div className='PageSection'>
+        <div className='container'>
+          <div className="pageContent">
+            <div className='adminSideBar'>
+              <AdminSideBar />
+            </div>
+            <div className='tableBody'>
+
+              <div className='produtcPage'>
+                <div className='productHeading'>
+                  <h2>Products</h2>
+                  <button className='addBtn product' onClick={() => setAddModal(true)}>Create new</button>
+                </div>
+                <div className='ProductSection'>
+                  <div className='CardHeader'>
+                    <input type="text" placeholder='Search...' />
+                    <select name="category" id="category" value={selectedCategory} onChange={handleCategoryChange}  >
+                      <option value=''>All category</option>
+                      {category && category.map((category) => (
+                        <option key={category._id} value={category._id}>{category.name}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className='productDetails'>
+                    {!loading && Array.isArray(product) && product.length === 0 && selectedCategory && (
+                      <div className="noData">No products available for the selected category</div>
+                    )}
+                    {Array.isArray(product) && product?.map((products) => (
+                      <div className='productCard' key={products._id}>
+                        <div className='productCardImg'>
+                          <img src={`http://localhost:5001/${products.images[0]}`} alt="" />
+                        </div>
+                        <div className='cardContent'>
+                          <h3>{products.name}</h3>
+                          <p>{products.description}</p>
+                          <div className='price'>${products.price}</div>
+                          <div className='productAction'>
+                            <button className='productBtn edit' onClick={() => setEditModal(products._id)} >
+                              <i className="fa-solid fa-pen"></i>
+                            </button>
+                            <button className='productBtn delete' onClick={() => setDeleteModal(products._id)}>
+                              <i className="fa-regular fa-trash-can"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  {
+                    addModal && <AddProduct closeModal={() => setAddModal(false)} />
+                  }
+                  {
+                    editModal && <EditProduct editModalClose={() => setEditModal(false)} productId={editModal} />
+                  }
+                  {
+                    deleteModal && <DeleteProduct deleteModalClose={() => { setDeleteModal(false) }} productId={deleteModal} />
+                  }
+                  {
+                    loading && <div className="loading"> Loading ... </div>
+                  }
+                  {
+                    error && <div className="error"> {error} </div>
+                  }
                 </div>
               </div>
             </div>
-          ))}
+          </div>
         </div>
-        {
-          addModal && <AddProduct closeModal={() => setAddModal(false)} />
-        }
-        {
-          editModal && <EditProduct editModalClose={() => setEditModal(false)} productId={editModal} />
-        }
-        {
-          deleteModal && <DeleteProduct deleteModalClose={() => { setDeleteModal(false) }} productId={deleteModal} />
-        }
-        {
-          loading && <div className="loading"> Loading ... </div>
-        }
-        {
-          error && <div className="error"> {error} </div>
-        }
       </div>
     </div>
+
   )
 }
 

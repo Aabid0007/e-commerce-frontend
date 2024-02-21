@@ -24,7 +24,7 @@ const AdminCategory = () => {
     return (
         <div className='categoryPage'>
             <div className='contentHeading'>
-                <h3>Manage Categories</h3>
+                <h3>Categories</h3>
             </div>
             <div className='addContactBtn'>
                 <button className='addBtn' onClick={() => setAddModal(true)}><span className="material-symbols-outlined"> add
