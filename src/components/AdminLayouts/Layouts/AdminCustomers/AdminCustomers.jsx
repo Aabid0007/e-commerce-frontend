@@ -3,14 +3,19 @@ import AdminSideBar from '../AdminSideBar/AdminSideBar'
 import AdminHeader from '../AdminHeader/AdminHeader'
 import { useDispatch, useSelector } from 'react-redux'
 import { getCustomers } from '../../../../Redux/Slices/Admin.Slice'
+import { useNavigate } from 'react-router-dom'
 
 const AdminCustomers = () => {
     const { Customers } = useSelector((state) => state.admin);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     
     useEffect(() => {
         dispatch(getCustomers())
     }, [dispatch]);
+    const handleCustomerDetails = (userId) => {
+        navigate('/admin/customers-details',{state: { userId }})
+    }
 
     return (
         <div className='MainPage'>
@@ -42,7 +47,8 @@ const AdminCustomers = () => {
                                                     <th>Customer ID</th>
                                                     <th>Username</th>
                                                     <th>Email</th>
-                                                    <th>phone</th>
+                                                    <th>Phone</th>
+                                                    <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -53,6 +59,7 @@ const AdminCustomers = () => {
                                                         <td>{customer.username}</td>
                                                         <td>{customer.email}</td>
                                                         <td>{customer.phone}</td>
+                                                        <td onClick={() => handleCustomerDetails(customer._id)}> <i className="fa-solid fa-eye"></i></td>
                                                     </tr>
                                                 ))}
                                             </tbody>

@@ -1,11 +1,10 @@
 import axios from "axios";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import Cookies from "js-cookie";
+
 
 export const getAdminInfo = createAsyncThunk('getAdminInfo', async (data, { rejectWithValue }) => {
     try {
-        const response = await axios.post(`http://localhost:5001/api/admin/login`, data);
-        Cookies.set('adminToken', response.data.token);
+        const response = await axios.post(`http://localhost:5001/api/admin/login`, data,{ withCredentials: true});
         return response.data;
     } catch (error) {
         if (error.response) {

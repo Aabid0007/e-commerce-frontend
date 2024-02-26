@@ -5,7 +5,7 @@ import { getCategories } from '../../../../../Redux/Slices/Category.Slice';
 import AddProduct from '../../AdminProduct/AddProduct/AddProduct';
 import EditProduct from '../../AdminProduct/EditProduct/EditProduct';
 import DeleteProduct from '../../AdminProduct/DeleteProduct/DeleteProduct';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import "./CategoryProductList.css"
 import AdminHeader from '../../AdminHeader/AdminHeader';
 import AdminSideBar from '../../AdminSideBar/AdminSideBar';
@@ -17,6 +17,7 @@ const CategoryProductList = () => {
   const [editModal, setEditModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const categoryId = location.state.categoryId;
 
   useEffect(() => {
@@ -27,6 +28,10 @@ const CategoryProductList = () => {
   useEffect(() => {
     dispatch(getCategories());
   }, [dispatch]);
+ 
+  const handleProductDetails = (productId) => {
+    navigate('/admin/product-details',{state: { productId }})
+};
 
   return (
     <div className='MainPage'>
@@ -49,9 +54,9 @@ const CategoryProductList = () => {
                 </div>
                 <div className='ProductSection'>
                   <div className='productDetails'>
-                    {product && product?.map((products) => (
+                    {product[0] && product?.map((products) => (
                       <div className='productCard' key={products._id}>
-                        <div className='productCardImg'>
+                        <div className='productCardImg' onClick={() => handleProductDetails(products._id)}>
                           <img src={`http://localhost:5001/${products.images[0]}`} alt="" />
                         </div>
                         <div className='cardContent'>

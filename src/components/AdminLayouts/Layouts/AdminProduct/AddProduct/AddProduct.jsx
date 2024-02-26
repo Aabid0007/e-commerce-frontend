@@ -10,9 +10,8 @@ const AddProduct = ({ closeModal }) => {
     const [imagePreview, setImagePreviews] = useState([]);
     const watchedImages = watch('images');
     const { category } = useSelector((state) => state.category);
-    const [selectedCategory, setSelectedCategory] = useState("");
     const dispatch = useDispatch();
-    const {categoryId } = useSelector((state) => state.product);
+    const { categoryId } = useSelector((state) => state.product);
 
     useEffect(() => {
         dispatch(getCategories())
@@ -46,10 +45,10 @@ const AddProduct = ({ closeModal }) => {
         formData.append("name", data.name);
         formData.append("description", data.description);
         formData.append("price", data.price);
-        formData.append("category", selectedCategory);
+        formData.append("category", data.category);
         dispatch(createProduct(formData))
             .then(() => {
-                dispatch(getProducts({categoryId}));
+                dispatch(getProducts({ categoryId }));
                 closeModal();
             })
             .catch((error) => {
@@ -124,10 +123,10 @@ const AddProduct = ({ closeModal }) => {
                                     className="inputBox"
                                     placeholder="Enter Name"
                                     {...register("name", {
-                                        pattern: {
-                                            value: /^[A-Za-z]+$/,
-                                            message: "Invalid name format",
-                                        },
+                                        // pattern: {
+                                        //     value: /^[A-Za-z]+$/,
+                                        //     message: "Invalid name format",
+                                        // },
                                         required: "name is required",
                                     })}
                                 />
@@ -159,11 +158,14 @@ const AddProduct = ({ closeModal }) => {
                                     })}
                                 />
                                 <p className='error'>{errors.price?.message}</p>
+                                <label htmlFor="category">
                                 <h4>Category:</h4>
-                                <select name="category" id="category" value={selectedCategory}
-                                    onChange={(e) => setSelectedCategory(e.target.value)} 
-                                    >
-                                    <option value="">select category</option>
+                                </label>
+                                <select name="category" id="category"  defaultValue=""
+                                    {...register("category", {
+                                        required: "category is required",
+                                    })} >
+                                    <option value="" disabled>select category</option>
                                     {category?.map((category) => (
                                         <option key={category._id} value={category._id}>{category.name}</option>
                                     ))}

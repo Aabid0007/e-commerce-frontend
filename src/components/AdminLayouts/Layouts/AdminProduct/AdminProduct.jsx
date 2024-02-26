@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import "./AdminProduct.css"
 import { useDispatch, useSelector } from 'react-redux'
 import { getProducts, updateCategoryId } from '../../../../Redux/Slices/Product.Slice'
 import AddProduct from './AddProduct/AddProduct'
@@ -8,6 +7,8 @@ import EditProduct from './EditProduct/EditProduct'
 import { getCategories } from '../../../../Redux/Slices/Category.Slice'
 import AdminSideBar from '../AdminSideBar/AdminSideBar'
 import AdminHeader from '../AdminHeader/AdminHeader'
+import { useNavigate } from 'react-router-dom'
+import "./AdminProduct.css"
 
 const AdminProduct = () => {
   const { product, loading, error, categoryId } = useSelector((state) => state.product);
@@ -17,6 +18,7 @@ const AdminProduct = () => {
   const { category } = useSelector((state) => state.category);
   const [selectedCategory, setSelectedCategory] = useState("");
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getProducts({ categoryId }));
@@ -31,7 +33,9 @@ const AdminProduct = () => {
     setSelectedCategory(categoryId);
     dispatch(updateCategoryId(categoryId));
   };
-
+  const handleProductDetails = (productId) => {
+    navigate('/admin/product-details', { state: { productId } })
+  };
 
   return (
     <div className='MainPage'>
@@ -47,7 +51,6 @@ const AdminProduct = () => {
               <AdminSideBar />
             </div>
             <div className='tableBody'>
-
               <div className='produtcPage'>
                 <div className='productHeading'>
                   <h2>Products</h2>
@@ -69,7 +72,7 @@ const AdminProduct = () => {
                     )}
                     {Array.isArray(product) && product?.map((products) => (
                       <div className='productCard' key={products._id}>
-                        <div className='productCardImg'>
+                        <div className='productCardImg' onClick={() => handleProductDetails(products._id)}>
                           <img src={`http://localhost:5001/${products.images[0]}`} alt="" />
                         </div>
                         <div className='cardContent'>
@@ -110,7 +113,6 @@ const AdminProduct = () => {
         </div>
       </div>
     </div>
-
   )
 }
 

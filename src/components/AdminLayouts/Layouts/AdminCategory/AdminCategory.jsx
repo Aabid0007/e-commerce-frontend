@@ -21,6 +21,7 @@ const AdminCategory = () => {
     const handleCategoryImageClick = (categoryId) => {
         navigate('/admin/category/product', { state: { categoryId } });
     };
+   
     return (
         <div className='categoryPage'>
             <div className='contentHeading'>

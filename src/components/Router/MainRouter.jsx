@@ -18,6 +18,8 @@ import AdminProduct from '../AdminLayouts/Layouts/AdminProduct/AdminProduct';
 import AdminOrder from '../AdminLayouts/Layouts/AdminOrder/AdminOrder';
 import AdminCustomers from '../AdminLayouts/Layouts/AdminCustomers/AdminCustomers';
 import UserProductDetails from '../UserLayouts/Layouts/UserProductDetails/UserProductDetails';
+import AdminCustomerDetails from '../AdminLayouts/Layouts/AdminCustomerDetails/AdminCustomerDetails';
+import AdminProductDetails from '../AdminLayouts/Layouts/AdminProductDetails/AdminProductDetails';
 const MainRouter = () => {
   const { token } = useSelector((state) => state.admin);
   const { Token } = useSelector((state) => state.user);
@@ -44,11 +46,13 @@ const MainRouter = () => {
       <Routes>
         <Route path='/admin/login' element={<AdminLogin />} />
         <Route path='/admin' element={isLoggedIn() ? <AdminMainLayouts /> : <Navigate to="/admin/login" />} />
-        <Route path='/admin/category/product' element={<CategoryProductList />} />
-        <Route path='/admin/product' element={< AdminProduct />} />
-        <Route path='/admin/order' element={<AdminOrder />} />
-        <Route path='/admin/user-order' element={<UserOrder />} />
-        <Route path='/admin/customers' element={<AdminCustomers />} />
+        <Route path='/admin/category/product' element={isLoggedIn() ? <CategoryProductList /> : <Navigate to="/admin/login" />} />
+        <Route path='/admin/product'element={isLoggedIn() ? < AdminProduct /> : <Navigate to="/admin/login" />} />
+        <Route path='/admin/order' element={isLoggedIn() ? <AdminOrder /> : <Navigate to="/admin/login" />} />
+        <Route path='/admin/user-order' element={isLoggedIn() ? <UserOrder /> : <Navigate to="/admin/login" />} />
+        <Route path='/admin/customers' element={isLoggedIn() ? <AdminCustomers /> : <Navigate to="/admin/login" />} />
+        <Route path='/admin/customers-details' element={isLoggedIn() ? <AdminCustomerDetails /> : <Navigate to="/admin/login" />} />
+        <Route path='/admin/product-details' element={<AdminProductDetails />} />
         <Route path='/user/register' element={<UserRegister />} />
         <Route path='/user/login' element={<UserLogin />} />
         <Route path='/user' element={isLoggedInUser() ? <UserMainLayouts /> : <Navigate to='/user/login' />} />

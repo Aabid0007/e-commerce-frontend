@@ -82,6 +82,7 @@ export const createCheckoutSession = createAsyncThunk('createCheckoutSession', a
     try {
         const response = await axios.post(`http://localhost:5001/api/stripe/checkout-session`, { cartItems, userId, totalPrice });
         console.log("response data checkout", response.data);
+        console.log(cartItems);
         if (response.data.url) {
             window.location.href = response.data.url
         }
@@ -155,6 +156,7 @@ const userSlice = createSlice({
                 state.loading = false;
                 state.Token = action.payload;
                 state.userId = action.payload;
+                console.log('state',state.Token);
             })
             .addCase(userLogin.rejected, (state, action) => {
                 state.loading = false;
@@ -223,6 +225,7 @@ const userSlice = createSlice({
             .addCase(retrieveCheckoutSession.fulfilled, (state, { payload }) => {
                 state.loading = false
                 state.orderDetails = payload
+                console.log('state', state.orderDetails);
             })
             .addCase(retrieveCheckoutSession.rejected, (state, action) => {
                 state.loading = false;
@@ -243,7 +246,6 @@ const userSlice = createSlice({
                 state.error = action.payload || "An error occurred while retrieving session data";
             })
     },
-
 });
 
 export const { userLogout } = userSlice.actions;

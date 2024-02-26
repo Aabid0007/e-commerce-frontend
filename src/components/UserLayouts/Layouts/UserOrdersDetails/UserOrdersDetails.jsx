@@ -54,7 +54,7 @@ const UserOrdersDetails = () => {
                                                         <tr key={order._id}>
                                                             <td >
                                                                 <div className='userOrderImg'>
-                                                                    <img className='userOrderProductImg' src={`http://localhost:5001/${order.product[0]?.images}`} alt="" />
+                                                                    <img className='userOrderProductImg' src={`http://localhost:5001/${order.product[0]?.images[0]}`} alt="" />
                                                                     <h4>{order.product[0].name}</h4>
 
                                                                 </div>

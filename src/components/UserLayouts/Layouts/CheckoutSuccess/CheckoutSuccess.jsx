@@ -6,7 +6,7 @@ const CheckoutSuccess = () => {
     const navigate = useNavigate()
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
-    const id = searchParams.get('id');
+    const id = searchParams.get('id'); 
     const cartItems = searchParams.get('cartItems');
     const parsedData = JSON.parse(decodeURIComponent(cartItems));
   

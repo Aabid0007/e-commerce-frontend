@@ -108,7 +108,7 @@ const UserOrder = () => {
                                                         <tr key={order._id}>
                                                             <td>
                                                                 <div className='productBox'>
-                                                                    <img className='productImg' src={`http://localhost:5001/${order.product[0]?.images}`} alt="" />
+                                                                    <img className='productImg' src={`http://localhost:5001/${order.product[0]?.images[0]}`} alt="" />
                                                                     {order.product[0]?.name}
                                                                 </div>
                                                             </td>

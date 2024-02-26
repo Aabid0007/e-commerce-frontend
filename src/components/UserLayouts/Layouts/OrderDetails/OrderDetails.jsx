@@ -3,10 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllCarts, retrieveCheckoutSession } from '../../../../Redux/Slices/User.Slice';
 import { useLocation } from 'react-router-dom';
 import UserHeader from '../../Commen/UserHader/UserHeader';
-import "./OrderDetails.css"
 import easyinvoice from 'easyinvoice';
 import Cookies from 'js-cookie';
-
+import "./OrderDetails.css"
 
 function OrderDetails() {
   const { orderDetails } = useSelector((state) => state.user);

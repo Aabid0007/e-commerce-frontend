@@ -141,10 +141,10 @@ const EditProduct = ({ editModalClose, productId }) => {
                   className="inputBox"
                   placeholder="Enter Name"
                   {...register("name", {
-                    pattern: {
-                      value: /^[A-Za-z]+$/,
-                      message: "Invalid name format",
-                    },
+                    // pattern: {
+                    //   value: /^[A-Za-z]+$/,
+                    //   message: "Invalid name format",
+                    // },
                     required: "name is required",
                   })}
                 />
@@ -171,7 +171,7 @@ const EditProduct = ({ editModalClose, productId }) => {
                   className="inputBox"
                   placeholder="Enter price"
                   {...register("price", {
-                    required: "description is required",
+                    required: "price is required",
                   })}
                 />
                 <p className='error'>{errors.price?.message}</p>
@@ -181,7 +181,7 @@ const EditProduct = ({ editModalClose, productId }) => {
                 <select name="category" id="category" value={selectedCategory}
                   onChange={(e) => setSelectedCategory(e.target.value)}
                    >
-                  <option value="">select category</option>
+                  <option value="" disabled>select category</option>
                   {category?.map((category) => (
                     <option key={category._id} value={category._id}>{category.name}</option>
                   ))}

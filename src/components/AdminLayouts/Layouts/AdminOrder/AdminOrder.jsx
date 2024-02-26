@@ -10,7 +10,6 @@ const AdminOrder = () => {
     const navigate = useNavigate();
     const { orders } = useSelector((state) => state.admin);
 
-
     useEffect(() => {
         dispatch(getAllOrders())
     }, [dispatch])
