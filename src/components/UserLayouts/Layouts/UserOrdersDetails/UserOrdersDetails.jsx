@@ -12,7 +12,7 @@ const UserOrdersDetails = () => {
 
     useEffect(() => {
         dispatch(getUserOrder(userId));
-    }, [dispatch, userId])
+    }, [dispatch, userId]);
 
     const formatDate = (dateString) => {
         const date = new Date(dateString);

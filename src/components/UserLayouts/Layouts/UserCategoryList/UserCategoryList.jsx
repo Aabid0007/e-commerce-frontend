@@ -6,13 +6,14 @@ import UserHeader from '../../Commen/UserHader/UserHeader';
 import "./UserCategoryList.css"
 import Cookies from 'js-cookie';
 import { addToCart } from '../../../../Redux/Slices/User.Slice';
+
 const UserCategoryList = () => {
     const dispatch = useDispatch();
     const location = useLocation();
     const categoryId = location.state.categoryId;
     const userId = Cookies.get('userId');
     const { product, loading, error } = useSelector((state) => state.product);
-    const [addedToCart, setAddedToCart] = useState({});
+    const [ addedToCart, setAddedToCart ] = useState({});
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -20,19 +21,24 @@ const UserCategoryList = () => {
         dispatch(updateCategoryId(categoryId));
     }, [dispatch, categoryId]);
 
-
     const handleAddToCart = (productId) => {
-        if (addedToCart) {
-            dispatch(addToCart({ userId, productId, quantity: 1 }));
-            setAddedToCart((prev) => ({ ...prev, [productId]: true }))
+        if (userId) {
+            if (addedToCart) {
+                dispatch(addToCart({ userId, productId, quantity: 1 }));
+                setAddedToCart((prev) => ({ ...prev, [productId]: true }))
+            }
+        } else {
+            navigate('/user/login')
         }
     };
+
     const handleAddedCart = () => {
-        navigate('/user/category/product/cart')
-    }
+        navigate('/user/category/product/cart');
+    };
+
     const handleProductDetails = (productId) => {
-        navigate('/user/category/product-details', {state: { productId }});
-    }
+        navigate('/user/category/product-details', { state: { productId } });
+    };
 
     return (
         <div className='PageSection'>
@@ -42,37 +48,40 @@ const UserCategoryList = () => {
                 </div>
                 <div className='CategorySection'>
                     <div className='productDetails'>
-                        {product?.map((product, index) => (
-                            <div className='productCard' key={product._id}>
-                                <div className='productCardImg'>
-                                    <img src={`http://localhost:5001/${product.images[0]}`} alt={index} onClick={() => handleProductDetails(product._id)} />
-                                </div>
-                                <div className='cardContent'>
-                                    <h3>{product.name}</h3>
-                                    <p>{product.description}</p>
-                                    <div className='price'>${product.price}</div>
+                        {loading ? (
+                            <div className="loading">Loading...</div>
+                        ) : (
+                            <>
+                                {product?.map((product, index) => (
+                                    <div className='productCard' key={product._id}>
+                                        <div className='productCardImg' onClick={() => handleProductDetails(product._id)}>
+                                            <img src={`http://localhost:5001/${product.images[0]}`} alt={index}  />
+                                        </div>
+                                        <div className='cardContent'>
+                                            <h3>{product.name}</h3>
+                                            <p>{product.description}</p>
+                                            <div className='price'>${product.price}</div>
 
-                                    <div className='productAction'>
-                                        {!addedToCart[product._id] ? (
-                                            <button
-                                                className='productCartBtn'
-                                                onClick={() => handleAddToCart(product._id)}
-                                            >
-                                                Add to Cart
-                                            </button>
-                                        ) : (
-                                            <button className='productCartBtn' onClick={() => handleAddedCart()} >
-                                                Added to Cart
-                                            </button>
-                                        )}
+                                            <div className='productAction'>
+                                                {!addedToCart[product._id] ? (
+                                                    <button
+                                                        className='productCartBtn'
+                                                        onClick={() => handleAddToCart(product._id)}
+                                                    >
+                                                        Add to Cart
+                                                    </button>
+                                                ) : (
+                                                    <button className='productCartBtn' onClick={() => handleAddedCart()} >
+                                                        Added to Cart
+                                                    </button>
+                                                )}
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                        ))}
-                        {product.length === 0 && <p className='NoProduct'>No Product found</p>}
-                        {
-                            loading && <div className="loading"> Loading ... </div>
-                        }
+                                ))}
+                                {product.length === 0 && <p className='NoProduct'>No Product found</p>}
+                            </>
+                        )}
                         {
                             error && <div className="error"> {error} </div>
                         }
@@ -83,5 +92,4 @@ const UserCategoryList = () => {
     )
 }
 
-
-export default UserCategoryList
+export default UserCategoryList;

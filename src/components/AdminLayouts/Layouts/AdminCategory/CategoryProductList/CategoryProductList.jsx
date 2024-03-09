@@ -16,14 +16,17 @@ const CategoryProductList = () => {
   const [addModal, setAddModal] = useState(false);
   const [editModal, setEditModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
+ const [productId, setProductId ] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const categoryId = location.state.categoryId;
+  const { searchQuery } = useSelector((state) => state.product);
+
 
   useEffect(() => {
-    dispatch(getProducts({ categoryId }));
+    dispatch(getProducts({ categoryId , searchQuery }));
     dispatch(updateCategoryId(categoryId));
-  }, [dispatch, categoryId]);
+  }, [dispatch, categoryId , searchQuery]);
 
   useEffect(() => {
     dispatch(getCategories());
@@ -32,6 +35,15 @@ const CategoryProductList = () => {
   const handleProductDetails = (productId) => {
     navigate('/admin/product-details',{state: { productId }})
 };
+
+const handleEditModalOpen = (productId) => {
+  setEditModal(true);
+  setProductId(productId);
+}
+const handleDeleteModalOpen = (productId) => {
+  setDeleteModal(true);
+  setProductId(productId);
+}
 
   return (
     <div className='MainPage'>
@@ -55,8 +67,8 @@ const CategoryProductList = () => {
                 <div className='ProductSection'>
                   <div className='productDetails'>
                     {product[0] && product?.map((products) => (
-                      <div className='productCard' key={products._id}>
-                        <div className='productCardImg' onClick={() => handleProductDetails(products._id)}>
+                      <div className='productCard' key={products._id} onClick={() => handleProductDetails(products._id)}>
+                        <div className='productCardImg'>
                           <img src={`http://localhost:5001/${products.images[0]}`} alt="" />
                         </div>
                         <div className='cardContent'>
@@ -64,8 +76,8 @@ const CategoryProductList = () => {
                           <p>{products.description}</p>
                           <div className='price'>${products.price}</div>
                           <div className='productAction'>
-                            <button className='productBtn edit' onClick={() => setEditModal(products._id)} > <i className="fa-solid fa-pen"></i></button>
-                            <button className='productBtn delete' onClick={() => setDeleteModal(products._id)}>  <i className="fa-regular fa-trash-can"></i></button>
+                            <button className='productBtn edit' onClick={() => handleEditModalOpen(products._id)} > <i className="fa-solid fa-pen"></i></button>
+                            <button className='productBtn delete' onClick={() => handleDeleteModalOpen(products._id)}>  <i className="fa-regular fa-trash-can"></i></button>
                           </div>
                         </div>
                       </div>
@@ -76,10 +88,10 @@ const CategoryProductList = () => {
                     addModal && <AddProduct closeModal={() => setAddModal(false)} />
                   }
                   {
-                    editModal && <EditProduct editModalClose={() => setEditModal(false)} productId={editModal} />
+                    editModal && <EditProduct editModalClose={() => setEditModal(false)} productId={productId} />
                   }
                   {
-                    deleteModal && <DeleteProduct deleteModalClose={() => { setDeleteModal(false) }} productId={deleteModal} />
+                    deleteModal && <DeleteProduct deleteModalClose={() => { setDeleteModal(false) }} productId={productId} />
                   }
                   {
                     loading && <div className="loading"> Loading ... </div>

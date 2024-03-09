@@ -20,7 +20,7 @@ export const userRegister = createAsyncThunk('userRegister', async (data, { reje
 // userLogin
 export const userLogin = createAsyncThunk('userLogin', async (data, { rejectWithValue }) => {
     try {
-        const response = await axios.post(`http://localhost:5001/api/users/login`, data,{ withCredentials: true});
+        const response = await axios.post(`http://localhost:5001/api/users/login`, data, { withCredentials: true });
         Cookies.set('userId', response.data.userId);
         return response.data;
     } catch (error) {
@@ -43,7 +43,7 @@ export const addToCart = createAsyncThunk('addToCart', async ({ userId, productI
         return rejectWithValue(error.response.data.error || "An unexpected error occurred");
     }
 }
-); 
+);
 
 //   get all cart
 export const getAllCarts = createAsyncThunk('getAllCarts', async (id) => {
@@ -122,11 +122,11 @@ const userSlice = createSlice({
         userCarts: [],
         totalQuantity: 0,
         orderDetails: [],
-        UserOrders:[],
+        UserOrders: [],
     },
     reducers: {
         userLogout: (state) => {
-            state.Token = '';
+            state.totalQuantity = 0;
             state.userId = null;
             Cookies.remove('userToken');
             Cookies.remove('userId');
@@ -140,7 +140,6 @@ const userSlice = createSlice({
             })
             .addCase(userRegister.fulfilled, (state, action) => {
                 state.loading = false;
-
             })
             .addCase(userRegister.rejected, (state, action) => {
                 state.loading = false;
@@ -154,9 +153,7 @@ const userSlice = createSlice({
             })
             .addCase(userLogin.fulfilled, (state, action) => {
                 state.loading = false;
-                state.Token = action.payload;
                 state.userId = action.payload;
-                console.log('state',state.Token);
             })
             .addCase(userLogin.rejected, (state, action) => {
                 state.loading = false;
@@ -187,7 +184,6 @@ const userSlice = createSlice({
                 state.loading = false;
                 state.totalQuantity = action.payload.totalQuantity;
                 state.userCarts = action.payload.userCarts;
-
             })
             .addCase(getAllCarts.rejected, (state, action) => {
                 state.loading = false;
@@ -204,7 +200,6 @@ const userSlice = createSlice({
                 state.userCarts = state.userCarts.map(cart => ({
                     ...cart,
                     items: cart.items.filter(item => item.productDetails._id !== action.payload)
-
                 }));
             })
             .addCase(deleteCart.rejected, (state, action) => {
@@ -239,7 +234,7 @@ const userSlice = createSlice({
             })
             .addCase(getUserOrder.fulfilled, (state, action) => {
                 state.loading = true;
-                state.UserOrders = action.payload.UserOrders;
+                state.UserOrders = action.payload.data;
             })
             .addCase(getUserOrder.rejected, (state, action) => {
                 state.loading = false;

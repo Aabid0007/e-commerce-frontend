@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import "./AddProduct.css"
 import { createProduct, getProducts } from '../../../../../Redux/Slices/Product.Slice';
 import { getCategories } from '../../../../../Redux/Slices/Category.Slice';
 

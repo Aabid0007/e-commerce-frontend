@@ -14,16 +14,15 @@ const EditProduct = ({ editModalClose, productId }) => {
 
   useEffect(() => {
     const fetchCategoryData = async () => {
-
       try {
         const actionResult = await dispatch(getProductById(productId));
-        const productData = actionResult.payload;
+        const productData = actionResult.payload.data;
         if (productData) {
-          setValue("name", productData.product.name || '');
-          setValue("description", productData.product.description || '');
-          setValue("price", productData.product.price || '');
-          setSelectedCategory(productData.product.category);
-          const previews = productData.product.images.map(image => `http://localhost:5001/${image}`);
+          setValue("name", productData.name || '');
+          setValue("description", productData.description || '');
+          setValue("price", productData.price || '');
+          setSelectedCategory(productData.category);
+          const previews = productData.images.map(image => `http://localhost:5001/${image}`);
           setImagePreviews(previews);
         }
       } catch (error) {
@@ -55,7 +54,6 @@ const EditProduct = ({ editModalClose, productId }) => {
           }
         }
       };
-
       loadImagePreviews();
     } else {
       setImagePreviews([]);
@@ -130,8 +128,7 @@ const EditProduct = ({ editModalClose, productId }) => {
                         <p className="error">{errors.images?.message}</p>
                       </div>
                     </div>
-                  )}
-                />
+                  )} />
                 <label htmlFor="name">
                   <h4>Name:</h4>
                 </label>
@@ -146,8 +143,7 @@ const EditProduct = ({ editModalClose, productId }) => {
                     //   message: "Invalid name format",
                     // },
                     required: "name is required",
-                  })}
-                />
+                  })} />
                 <p className='error'>{errors.name?.message}</p>
                 <label htmlFor="description">
                   <h4>Description:</h4>
@@ -159,8 +155,7 @@ const EditProduct = ({ editModalClose, productId }) => {
                   placeholder="Enter Description"
                   {...register("description", {
                     required: "description is required",
-                  })}
-                />
+                  })} />
                 <p className='error'>{errors.description?.message}</p>
                 <label htmlFor="price">
                   <h4>Price:</h4>
@@ -172,15 +167,11 @@ const EditProduct = ({ editModalClose, productId }) => {
                   placeholder="Enter price"
                   {...register("price", {
                     required: "price is required",
-                  })}
-                />
+                  })} />
                 <p className='error'>{errors.price?.message}</p>
-
                 <h4>Category:</h4>
-
                 <select name="category" id="category" value={selectedCategory}
-                  onChange={(e) => setSelectedCategory(e.target.value)}
-                   >
+                  onChange={(e) => setSelectedCategory(e.target.value)} >
                   <option value="" disabled>select category</option>
                   {category?.map((category) => (
                     <option key={category._id} value={category._id}>{category.name}</option>

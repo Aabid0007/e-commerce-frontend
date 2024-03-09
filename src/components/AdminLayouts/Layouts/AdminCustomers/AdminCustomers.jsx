@@ -59,7 +59,7 @@ const AdminCustomers = () => {
                                                         <td>{customer.username}</td>
                                                         <td>{customer.email}</td>
                                                         <td>{customer.phone}</td>
-                                                        <td onClick={() => handleCustomerDetails(customer._id)}> <i className="fa-solid fa-eye"></i></td>
+                                                        <td className='AdminOrderTable' onClick={() => handleCustomerDetails(customer._id)}> <i className="fa-solid fa-eye"></i></td>
                                                     </tr>
                                                 ))}
                                             </tbody>

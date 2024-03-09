@@ -45,6 +45,7 @@
 }
 .productCardImg{
     padding: 10px;
+    cursor: pointer;
 }
 .productCard img{
     width: 100%;

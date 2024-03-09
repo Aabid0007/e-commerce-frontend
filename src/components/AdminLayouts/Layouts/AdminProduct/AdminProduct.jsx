@@ -15,14 +15,16 @@ const AdminProduct = () => {
   const [addModal, setAddModal] = useState(false);
   const [editModal, setEditModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
+  const [productId, setProductId] = useState('');
   const { category } = useSelector((state) => state.category);
   const [selectedCategory, setSelectedCategory] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { searchQuery } = useSelector((state) => state.product);
 
   useEffect(() => {
-    dispatch(getProducts({ categoryId }));
-  }, [dispatch, categoryId]);
+    dispatch(getProducts({ categoryId, searchQuery }));
+  }, [dispatch, categoryId, searchQuery]);
 
   useEffect(() => {
     dispatch(getCategories());
@@ -36,6 +38,14 @@ const AdminProduct = () => {
   const handleProductDetails = (productId) => {
     navigate('/admin/product-details', { state: { productId } })
   };
+  const handleEditModalOpen = (productId) => {
+    setEditModal(true);
+    setProductId(productId);
+  }
+  const handleDeleteModalOpen = (productId) => {
+    setDeleteModal(true);
+    setProductId(productId);
+  }
 
   return (
     <div className='MainPage'>
@@ -67,12 +77,12 @@ const AdminProduct = () => {
                     </select>
                   </div>
                   <div className='productDetails'>
-                    {!loading && Array.isArray(product) && product.length === 0 && selectedCategory && (
+                    {!loading && product && product.length === 0 && selectedCategory && (
                       <div className="noData">No products available for the selected category</div>
                     )}
-                    {Array.isArray(product) && product?.map((products) => (
-                      <div className='productCard' key={products._id}>
-                        <div className='productCardImg' onClick={() => handleProductDetails(products._id)}>
+                    {product[0] && product?.map((products) => (
+                      <div className='productCard' key={products._id} >
+                        <div className='productCardImg' onClick={() => handleProductDetails(products._id)} >
                           <img src={`http://localhost:5001/${products.images[0]}`} alt="" />
                         </div>
                         <div className='cardContent'>
@@ -80,10 +90,10 @@ const AdminProduct = () => {
                           <p>{products.description}</p>
                           <div className='price'>${products.price}</div>
                           <div className='productAction'>
-                            <button className='productBtn edit' onClick={() => setEditModal(products._id)} >
+                            <button className='productBtn edit' onClick={() => handleEditModalOpen(products._id)} >
                               <i className="fa-solid fa-pen"></i>
                             </button>
-                            <button className='productBtn delete' onClick={() => setDeleteModal(products._id)}>
+                            <button className='productBtn delete' onClick={() => handleDeleteModalOpen(products._id)}>
                               <i className="fa-regular fa-trash-can"></i>
                             </button>
                           </div>
@@ -95,10 +105,10 @@ const AdminProduct = () => {
                     addModal && <AddProduct closeModal={() => setAddModal(false)} />
                   }
                   {
-                    editModal && <EditProduct editModalClose={() => setEditModal(false)} productId={editModal} />
+                    editModal && <EditProduct editModalClose={() => setEditModal(false)} productId={productId} />
                   }
                   {
-                    deleteModal && <DeleteProduct deleteModalClose={() => { setDeleteModal(false) }} productId={deleteModal} />
+                    deleteModal && <DeleteProduct deleteModalClose={() => setDeleteModal(false)} productId={productId} />
                   }
                   {
                     loading && <div className="loading"> Loading ... </div>

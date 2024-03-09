@@ -3,7 +3,7 @@ import axios from "axios";
 
 
 // get all products
-export const getProducts = createAsyncThunk('getProducts', async ({categoryId}) => {
+export const getProducts = createAsyncThunk('getProducts', async ({ categoryId }) => {
     try {
         const response = await axios.get(`http://localhost:5001/api/products/?categoryId=${categoryId}`);
         return response.data;
@@ -63,6 +63,7 @@ const productSlice = createSlice({
         loading: false,
         categoryId: '',
         productById: [],
+        searchQuery: '',
     },
     reducers: {
         updateCategoryId(state, action) {
@@ -77,7 +78,7 @@ const productSlice = createSlice({
         })
         .addCase(getProducts.fulfilled, (state, action) => {
             state.loading = false;
-            state.product = action.payload.products;
+            state.product = action.payload.data;
         })
         .addCase(getProducts.rejected, (state, action) => {
             state.loading = false;
@@ -100,7 +101,10 @@ const productSlice = createSlice({
         // product Id fetching
         .addCase(getProductById.fulfilled, (state, action) => {
             state.loading = false;
-            state.productById = action.payload.product;
+            state.productById = action.payload.data;
+        })
+        .addCase(getProductById.pending, (state, action) => {
+           state.loading = true;
         })
 
         // update product

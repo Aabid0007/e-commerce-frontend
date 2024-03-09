@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getCategories } from '../../../../Redux/Slices/Category.Slice';
 const UserCategory = () => {
+    
     const dispatch = useDispatch();
     const { category, loading, error } = useSelector((state) => state.category);
     const navigate = useNavigate();
@@ -20,9 +21,9 @@ const UserCategory = () => {
                     <div className='CategorySection'>
                         <div className='productDetails'>
                             {category?.map((category) => (
-                                <div className='productCard' key={category._id}>
+                                <div className='productCard' key={category._id} onClick={() => handleCategoryImageClick(category._id)}>
                                     <div className='productCardImg'>
-                                        <img src={`http://localhost:5001/${category.images}`} alt="" onClick={() => handleCategoryImageClick(category._id)} />
+                                        <img src={`http://localhost:5001/${category.images}`} alt="new"  />
                                     </div>
                                     <div className='cardContent'>
                                         <h3>{category.name}</h3>

@@ -1,10 +1,10 @@
 import axios from "axios";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-
+    
 export const getAdminInfo = createAsyncThunk('getAdminInfo', async (data, { rejectWithValue }) => {
     try {
-        const response = await axios.post(`http://localhost:5001/api/admin/login`, data,{ withCredentials: true});
+        const response = await axios.post(`http://localhost:5001/api/admin/login`, data, { withCredentials: true });
         return response.data;
     } catch (error) {
         if (error.response) {
@@ -51,8 +51,8 @@ const adminSlice = createSlice({
         error: '',
         loading: false,
         orders: [],
-        orderById:[],
-        Customers:[],
+        orderById: [],
+        Customers: [],
     },
     reducers: {
         logout: (state) => {
@@ -68,6 +68,7 @@ const adminSlice = createSlice({
             .addCase(getAdminInfo.fulfilled, (state, action) => {
                 state.loading = false;
                 state.token = action.payload;
+                console.log(state.token,"token");
             })
             .addCase(getAdminInfo.rejected, (state, action) => {
                 state.loading = false;
@@ -81,7 +82,7 @@ const adminSlice = createSlice({
             })
             .addCase(getAllOrders.fulfilled, (state, action) => {
                 state.loading = false;
-                state.orders = action.payload.orders;
+                state.orders = action.payload.data;
             })
             .addCase(getAllOrders.rejected, (state, action) => {
                 state.loading = false;
@@ -91,7 +92,7 @@ const adminSlice = createSlice({
             // getOrderById
             .addCase(getOrderById.fulfilled, (state, action) => {
                 state.loading = false;
-                state.orderById = action.payload.orderById;
+                state.orderById = action.payload.data;
             })
 
             // get Customers

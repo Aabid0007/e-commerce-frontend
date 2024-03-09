@@ -19,8 +19,8 @@ const AdminProductDetails = () => {
     const handleThumbnailClick = (index) => {
         setMainImageIndex(index);
     };
-  return (
-    <div className='MainPage'>
+    return (
+        <div className='MainPage'>
             <div className='container'>
                 <div className='Main_Heading'>
                     <AdminHeader />
@@ -33,32 +33,31 @@ const AdminProductDetails = () => {
                             <AdminSideBar />
                         </div>
                         <div className='tableBody'>
-                        <div className='productsDetails'>
-                    <div className='productsImages'> {productById && productById.images?.map((image, index) => (
-                        <img key={index} src={`http://localhost:5001/${image}`} onClick={() => handleThumbnailClick(index)} alt='' />
-                    ))}</div>
-                    <div className='productsSection'>
-                        <div className='productsImageSection'>
-
-                            {productById && productById.images && productById.images.length > 0 && (
-                                <div className='productsImg'>
-                                    <img src={`http://localhost:5001/${productById.images[mainImageIndex]}`} alt="" />
+                            <div className='productsDetails'>
+                                <div className='productsImages'> {productById && productById.images?.map((image, index) => (
+                                    <img key={index} src={`http://localhost:5001/${image}`} onClick={() => handleThumbnailClick(index)} alt='' />
+                                ))}</div>
+                                <div className='productsSection'>
+                                    <div className='productsImageSection'>
+                                        {productById && productById.images && productById.images.length > 0 && (
+                                            <div className='productsImg'>
+                                                <img src={`http://localhost:5001/${productById.images[mainImageIndex]}`} alt="" />
+                                            </div>
+                                        )}
+                                    </div>
+                                    <div className='productsContentSection'>
+                                        <h3>{productById.name}</h3>
+                                        <span>${productById.price}</span>
+                                        <span>{productById.description}</span>
+                                    </div>
                                 </div>
-                            )}
-                        </div>
-                        <div className='productsContentSection'>
-                            <h3>{productById.name}</h3>
-                            <span>${productById.price}</span>
-                            <span>{productById.description}</span>
-                        </div>
-                        </div>
-                        </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-  )
+    )
 }
 
 export default AdminProductDetails

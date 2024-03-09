@@ -20,7 +20,8 @@ const UserLogin = () => {
 
       if (!response.error) {
         navigate('/user');
-      }else{
+      }
+      else{
         Cookies.remove('userToken');
        navigate('/user/login');
       }

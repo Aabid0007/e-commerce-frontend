@@ -11,6 +11,7 @@ const AdminCategory = () => {
     const [addModal, setAddModal] = useState(false);
     const [editModal, setEditModal] = useState(false);
     const [deleteModal, setDeleteModal] = useState(false);
+    const [categoryId, setCategoryId ] = useState('');
     const dispatch = useDispatch();
     const { category, loading, error } = useSelector((state) => state.category);
     const navigate = useNavigate();
@@ -22,6 +23,16 @@ const AdminCategory = () => {
         navigate('/admin/category/product', { state: { categoryId } });
     };
    
+    const handleCategoryEditModal = (categoryId) => {
+        setCategoryId(categoryId);
+        setEditModal(true);
+    };
+
+    const handleCategoryDeleteModal = (categoryId) => {
+        setCategoryId(categoryId);
+        setDeleteModal(true);
+    };
+
     return (
         <div className='categoryPage'>
             <div className='contentHeading'>
@@ -58,10 +69,10 @@ const AdminCategory = () => {
                                 <td>{categories.name}</td>
                                 <td>
                                     <div className='contact_action'>
-                                        <button className="contact_btn edit_btn" onClick={() => setEditModal(categories._id)} >
+                                        <button className="contact_btn edit_btn" onClick={() => handleCategoryEditModal(categories._id)} >
                                             <i className="fa-solid fa-pen"></i>
                                         </button>
-                                        <button className="contact_btn delete_btn" onClick={() => setDeleteModal(categories._id)}>
+                                        <button className="contact_btn delete_btn" onClick={() => handleCategoryDeleteModal(categories._id)}>
                                             <i className="fa-regular fa-trash-can"></i>
                                         </button>
                                     </div>
@@ -78,8 +89,8 @@ const AdminCategory = () => {
                 error && <div className="error"> {error} </div>
             }
             {addModal && <AddCategory closeModal={() => { setAddModal(false) }} />}
-            {editModal && <EditCategory editModalClose={() => { setEditModal(false) }} categoryId={editModal} />}
-            {deleteModal && <DeleteCategory deleteModalClose={() => { setDeleteModal(false) }} categoryId={deleteModal} />}
+            {editModal && <EditCategory editModalClose={() => { setEditModal(false) }} categoryId={categoryId} />}
+            {deleteModal && <DeleteCategory deleteModalClose={() => { setDeleteModal(false) }} categoryId={categoryId} />}
         </div>
     )
 }

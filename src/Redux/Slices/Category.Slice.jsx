@@ -4,7 +4,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 // get all category
 export const getCategories = createAsyncThunk('getCategory', async () => {
     try {
-        const response = await axios.get(`http://localhost:5001/api/categorys/`);
+        const response = await axios.get(`http://localhost:5001/api/categorys`);
         return response.data;
     } catch (error) {
         throw error;
@@ -14,7 +14,7 @@ export const getCategories = createAsyncThunk('getCategory', async () => {
 // create Category
 export const createCategory = createAsyncThunk('createCategory', async (data) => {
     try {
-        const response = await axios.post(`http://localhost:5001/api/categorys/`, data);
+        const response = await axios.post(`http://localhost:5001/api/categorys`, data);
         return response.data;
     } catch (error) {
         throw error;
@@ -70,7 +70,7 @@ const categorySlice = createSlice({
             })
             .addCase(getCategories.fulfilled, (state, action) => {
                 state.loading = false;
-                state.category = action.payload.categorys;
+                state.category = action.payload.data;
             })
             .addCase(getCategories.rejected, (state, action) => {
                 state.loading = false;
@@ -83,7 +83,7 @@ const categorySlice = createSlice({
             })
             .addCase(createCategory.fulfilled, (state, action) => {
                 state.loading = false;
-                state.category = action.payload;
+                state.category = action.payload.data;
             })
             .addCase(createCategory.rejected, (state, action) => {
                 state.loading = false;
@@ -101,7 +101,7 @@ const categorySlice = createSlice({
             })
             .addCase(editCategory.fulfilled, (state, action) => {
                 state.loading = false;
-                state.category = action.payload;
+                state.category = action.payload.data;
             })
             .addCase(editCategory.rejected, (state, action) => {
                 state.loading = false;

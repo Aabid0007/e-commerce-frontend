@@ -15,7 +15,7 @@ const EditCategory = ({ editModalClose, categoryId }) => {
 
       try {
         const actionResult = await dispatch(getCategoryById(categoryId));
-        const CategoryData = actionResult.payload;
+        const CategoryData = actionResult.payload.data;
         if (CategoryData) {
           setValue("name", CategoryData.name || '');
           setValue("description", CategoryData.description || '');
