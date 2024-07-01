@@ -67,8 +67,8 @@ const handleDeleteModalOpen = (productId) => {
                 <div className='ProductSection'>
                   <div className='productDetails'>
                     {product[0] && product?.map((products) => (
-                      <div className='productCard' key={products._id} onClick={() => handleProductDetails(products._id)}>
-                        <div className='productCardImg'>
+                      <div className='productCard' key={products._id} >
+                        <div className='productCardImg' onClick={() => handleProductDetails(products._id)}>
                           <img src={`http://localhost:5001/${products.images[0]}`} alt="" />
                         </div>
                         <div className='cardContent'>
@@ -85,13 +85,13 @@ const handleDeleteModalOpen = (productId) => {
                   </div>
                   {product?.length === 0 && <p className='NoProduct'>No Product found</p>}
                   {
-                    addModal && <AddProduct closeModal={() => setAddModal(false)} />
+                    addModal && <AddProduct closeModal={() => setAddModal(false)} categoryID={ categoryId } />
                   }
                   {
-                    editModal && <EditProduct editModalClose={() => setEditModal(false)} productId={productId} />
+                    editModal && <EditProduct editModalClose={() => setEditModal(false)} productId={ productId } />
                   }
                   {
-                    deleteModal && <DeleteProduct deleteModalClose={() => { setDeleteModal(false) }} productId={productId} />
+                    deleteModal && <DeleteProduct deleteModalClose={() => { setDeleteModal(false) }} productId={ productId } />
                   }
                   {
                     loading && <div className="loading"> Loading ... </div>

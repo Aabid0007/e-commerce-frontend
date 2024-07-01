@@ -17,6 +17,15 @@ const AddProduct = ({ closeModal }) => {
     }, [dispatch]);
 
     useEffect(() => {
+        if (category && categoryId) {
+            const selectedCategory = category.find(cat => cat._id === categoryId);
+            if (selectedCategory) {
+                setValue('category', categoryId);
+            }
+        }
+    }, [category, categoryId, setValue]);
+
+    useEffect(() => {
         if (watchedImages) {
             const previews = [];
             for (const image of watchedImages) {
@@ -158,13 +167,13 @@ const AddProduct = ({ closeModal }) => {
                                 />
                                 <p className='error'>{errors.price?.message}</p>
                                 <label htmlFor="category">
-                                <h4>Category:</h4>
+                                    <h4>Category:</h4>
                                 </label>
-                                <select name="category" id="category"  defaultValue=""
+                                <select name="category" id="category" defaultValue=""
                                     {...register("category", {
                                         required: "category is required",
                                     })} >
-                                    <option value="" disabled>select category</option>
+                                    <option value="" disabled>Select category</option>
                                     {category?.map((category) => (
                                         <option key={category._id} value={category._id}>{category.name}</option>
                                     ))}

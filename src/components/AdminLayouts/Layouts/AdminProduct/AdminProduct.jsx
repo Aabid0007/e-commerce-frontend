@@ -77,8 +77,8 @@ const AdminProduct = () => {
                     </select>
                   </div>
                   <div className='productDetails'>
-                    {!loading && product && product.length === 0 && selectedCategory && (
-                      <div className="noData">No products available for the selected category</div>
+                    {!loading && product && product.length === 0  && (
+                      <div className="noData">No products available </div>
                     )}
                     {product[0] && product?.map((products) => (
                       <div className='productCard' key={products._id} >

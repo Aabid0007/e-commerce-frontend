@@ -56,6 +56,15 @@
     display: flex;
     gap: 22px;
     flex-wrap: wrap;
+    color: red;
+}
+.noData{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+select#category{
+    height: 32px;
 }
 .cardContent{
     color: #6c757d;

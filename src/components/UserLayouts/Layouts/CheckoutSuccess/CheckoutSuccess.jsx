@@ -25,7 +25,7 @@ const CheckoutSuccess = () => {
                             </div>
                             <h2>Payment Successful!</h2>
                             <p>Thank you for your purchase.</p>
-                            <button onClick={() =>navigate('/user/category/product/order-details' ,{state:{cartItems:parsedData,id:id}})}>go to order Details <i className="fa-solid fa-arrow-right"></i></button>
+                            <button className='successNavigateBtn' onClick={() =>navigate('/user/category/product/order-details' ,{state:{cartItems:parsedData,id:id}})}>go to order Details <i className="fa-solid fa-arrow-right"></i></button>
                         </div>
                     </div>
                 </div>

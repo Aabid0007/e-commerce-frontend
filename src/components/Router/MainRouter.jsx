@@ -56,6 +56,7 @@ console.log(userId);
         <Route path='/user/register' element={<UserRegister />} />
         <Route path='/user/login' element={<UserLogin />} />
         <Route path='/user' element={<UserMainLayouts /> } />
+        <Route path='/' element={<UserMainLayouts />} />
         <Route path='/user/category/product' element={<UserCategoryList /> } />
         <Route path='/user/category/product-details' element={<UserProductDetails />} />
         <Route path='/user/category/product/cart' element={ isUserLoggedIn() ? <UserCart /> : <Navigate to='/user/login' />} />

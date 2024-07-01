@@ -9,7 +9,6 @@ const EditProduct = ({ editModalClose, productId }) => {
   const watchedImages = watch('images');
   const { category } = useSelector((state) => state.category);
   const { categoryId } = useSelector((state) => state.product);
-  const [selectedCategory, setSelectedCategory] = useState("");
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -21,7 +20,7 @@ const EditProduct = ({ editModalClose, productId }) => {
           setValue("name", productData.name || '');
           setValue("description", productData.description || '');
           setValue("price", productData.price || '');
-          setSelectedCategory(productData.category);
+          setValue("category", productData.category || '');
           const previews = productData.images.map(image => `http://localhost:5001/${image}`);
           setImagePreviews(previews);
         }
@@ -61,6 +60,7 @@ const EditProduct = ({ editModalClose, productId }) => {
   }, [watchedImages]);
 
 
+
   const onSubmit = async (data) => {
     try {
       const formData = new FormData();
@@ -70,7 +70,7 @@ const EditProduct = ({ editModalClose, productId }) => {
       formData.append("name", data.name);
       formData.append("description", data.description);
       formData.append("price", data.price);
-      formData.append("category", selectedCategory);
+      formData.append("category", data.category); 
       await dispatch(editProduct({ id: productId, data: formData }));
       dispatch(getProducts({ categoryId }));
       editModalClose();
@@ -170,9 +170,10 @@ const EditProduct = ({ editModalClose, productId }) => {
                   })} />
                 <p className='error'>{errors.price?.message}</p>
                 <h4>Category:</h4>
-                <select name="category" id="category" value={selectedCategory}
-                  onChange={(e) => setSelectedCategory(e.target.value)} >
-                  <option value="" disabled>select category</option>
+                <select name="category" id="category" defaultValue=""
+                  {...register("category", {
+                    required: "category is required",
+                  })} >
                   {category?.map((category) => (
                     <option key={category._id} value={category._id}>{category.name}</option>
                   ))}
@@ -189,7 +190,6 @@ const EditProduct = ({ editModalClose, productId }) => {
       </div>
       <div className='overlay'></div>
     </div>
-
   )
 }
 

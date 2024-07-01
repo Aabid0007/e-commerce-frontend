@@ -81,9 +81,9 @@ const UserCart = () => {
                                                     </td>
                                                     <td className='tableTd'>
                                                         <div className='tableTd'>
-                                                            {item.quantity > 1 && <button onClick={() => handleQuantityUpdate(item.productDetails._id, 'decrement')}>-</button>}
+                                                            {item.quantity > 1 && <button className='quantityBtn' onClick={() => handleQuantityUpdate(item.productDetails._id, 'decrement')}>-</button>}
                                                             {item.quantity}
-                                                            <button onClick={() => handleQuantityUpdate(item.productDetails._id, 'increment')}>+</button>
+                                                            <button className='quantityBtn' onClick={() => handleQuantityUpdate(item.productDetails._id, 'increment')}>+</button>
                                                         </div>
                                                     </td>
                                                     <td className='tableTd'>
