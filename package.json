@@ -1,5 +1,6 @@
 {
-  
+  "name": "e-commerce-frontend",
+  "version": "0.1.0",
   "dependencies": {
     "@reduxjs/toolkit": "^2.1.0",
     "@stripe/stripe-js": "^3.0.0",
