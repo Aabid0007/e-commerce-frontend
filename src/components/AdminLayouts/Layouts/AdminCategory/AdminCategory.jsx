@@ -11,10 +11,11 @@ const AdminCategory = () => {
     const [addModal, setAddModal] = useState(false);
     const [editModal, setEditModal] = useState(false);
     const [deleteModal, setDeleteModal] = useState(false);
-    const [categoryId, setCategoryId ] = useState('');
+    const [categoryId, setCategoryId] = useState('');
     const dispatch = useDispatch();
     const { category, loading, error } = useSelector((state) => state.category);
     const navigate = useNavigate();
+
     useEffect(() => {
         dispatch(getCategories())
     }, [dispatch]);
@@ -22,7 +23,7 @@ const AdminCategory = () => {
     const handleCategoryImageClick = (categoryId) => {
         navigate('/admin/category/product', { state: { categoryId } });
     };
-   
+
     const handleCategoryEditModal = (categoryId) => {
         setCategoryId(categoryId);
         setEditModal(true);
@@ -62,10 +63,14 @@ const AdminCategory = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {Array.isArray(category) &&category?.map((categories, index) => (
+                        {category[0] && category?.map((categories, index) => (
                             <tr key={categories._id}>
                                 <td>{index + 1}</td>
-                                <td className='categoryImg' onClick={() => handleCategoryImageClick(categories._id)} ><div className='profile'><img src={`http://localhost:5001/${categories.images}`} alt="" /></div></td>
+                                <td className='categoryImg' onClick={() => handleCategoryImageClick(categories._id)} >
+                                    <div className='profile'>
+                                        <img src={`http://localhost:5001/${categories.images}`} alt="" />
+                                    </div>
+                                </td>
                                 <td>{categories.name}</td>
                                 <td>
                                     <div className='contact_action'>

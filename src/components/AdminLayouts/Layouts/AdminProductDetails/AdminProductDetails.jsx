@@ -13,8 +13,9 @@ const AdminProductDetails = () => {
     const { productById } = useSelector((state) => state.product);
 
     useEffect(() => {
-        dispatch(getProductById(productId))
+        dispatch(getProductById(productId));
     }, [dispatch, productId]);
+
 
     const handleThumbnailClick = (index) => {
         setMainImageIndex(index);

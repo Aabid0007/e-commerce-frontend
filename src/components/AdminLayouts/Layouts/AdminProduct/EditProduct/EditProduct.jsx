@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { editProduct, getProductById, getProducts } from '../../../../../Redux/Slices/Product.Slice';
+import { getCategories } from '../../../../../Redux/Slices/Category.Slice';
 
 const EditProduct = ({ editModalClose, productId }) => {
   const { register, handleSubmit, setValue, watch, control, formState: { errors } } = useForm();
@@ -12,6 +13,7 @@ const EditProduct = ({ editModalClose, productId }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(getCategories());
     const fetchCategoryData = async () => {
       try {
         const actionResult = await dispatch(getProductById(productId));
@@ -31,7 +33,6 @@ const EditProduct = ({ editModalClose, productId }) => {
 
     fetchCategoryData();
   }, [productId, dispatch, setValue]);
-
 
   useEffect(() => {
     if (watchedImages && watchedImages.length > 0) {
@@ -70,9 +71,10 @@ const EditProduct = ({ editModalClose, productId }) => {
       formData.append("name", data.name);
       formData.append("description", data.description);
       formData.append("price", data.price);
-      formData.append("category", data.category); 
+      formData.append("category", data.category);
       await dispatch(editProduct({ id: productId, data: formData }));
-      dispatch(getProducts({ categoryId }));
+      const result = await dispatch(getProducts({ categoryId })); // Capture the result
+      console.log('Fetched products:', result); 
       editModalClose();
     } catch (error) {
       console.error("Error updating product:", error);
@@ -82,7 +84,11 @@ const EditProduct = ({ editModalClose, productId }) => {
   return (
     <div>
       <div className="AddForm">
-        <div className='closeFrom'><button className="close_btn" onClick={editModalClose}><i className="fa-solid fa-xmark"></i></button></div>
+        <div className='closeFrom'>
+          <button className="close_btn" onClick={editModalClose}>
+            <i className="fa-solid fa-xmark"></i>
+          </button>
+        </div>
         <div className="FormSection">
           <div className="heading">
             <h2>Edit Product</h2>
@@ -117,7 +123,7 @@ const EditProduct = ({ editModalClose, productId }) => {
                             <img
                               key={index}
                               src={preview}
-                              alt={`update ${index + 1}`}
+                              alt={`Preview ${index + 1}`}
                               className="imagePreview"
                             />
                           ))

@@ -100,12 +100,10 @@ function OrderDetails() {
 
 
   return (
-    <div>
+    <>
+      <UserHeader />
       <div className='MainPage'>
         <div className='container'>
-          <div className='MainHeading'>
-            <UserHeader />
-          </div>
           <div className='orderSummarySection'>
             <div className='orderSummaryContent'>
               <div className='orderSummaryHeading'>
@@ -175,7 +173,7 @@ function OrderDetails() {
           </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }
 

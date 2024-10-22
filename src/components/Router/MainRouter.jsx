@@ -24,7 +24,7 @@ import AdminProductDetails from '../AdminLayouts/Layouts/AdminProductDetails/Adm
 const MainRouter = () => {
   const { token } = useSelector((state) => state.admin);
   const { userId } = useSelector((state) => state.user);
-console.log(userId);
+  
   const isLoggedIn = () => {
     const adminToken = Cookies.get('adminToken');
     if (!adminToken && !token) {

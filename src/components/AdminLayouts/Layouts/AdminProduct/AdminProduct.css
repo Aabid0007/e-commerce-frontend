@@ -52,11 +52,14 @@
     height: 240px;
 }
 .productDetails{
-    padding: 20px;
+    padding: 20px 0;
     display: flex;
     gap: 22px;
     flex-wrap: wrap;
     color: red;
+}
+.productDetails.table{
+    padding: 20px;
 }
 .noData{
     display: flex;

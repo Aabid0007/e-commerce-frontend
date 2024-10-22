@@ -30,6 +30,7 @@ const AdminProduct = () => {
     dispatch(getCategories());
   }, [dispatch]);
 
+
   const handleCategoryChange = (e) => {
     const categoryId = e.target.value;
     setSelectedCategory(categoryId);
@@ -76,7 +77,7 @@ const AdminProduct = () => {
                       ))}
                     </select>
                   </div>
-                  <div className='productDetails'>
+                  <div className='productDetails table'>
                     {!loading && product && product.length === 0  && (
                       <div className="noData">No products available </div>
                     )}

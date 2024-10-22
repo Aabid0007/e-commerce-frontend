@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getProducts, updateCategoryId } from '../../../../../Redux/Slices/Product.Slice';
-import { getCategories } from '../../../../../Redux/Slices/Category.Slice';
 import AddProduct from '../../AdminProduct/AddProduct/AddProduct';
 import EditProduct from '../../AdminProduct/EditProduct/EditProduct';
 import DeleteProduct from '../../AdminProduct/DeleteProduct/DeleteProduct';
@@ -12,25 +11,26 @@ import AdminSideBar from '../../AdminSideBar/AdminSideBar';
 
 const CategoryProductList = () => {
   const location = useLocation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const categoryId = location.state?.categoryId;
   const { product, loading, error } = useSelector((state) => state.product);
   const [addModal, setAddModal] = useState(false);
   const [editModal, setEditModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
- const [productId, setProductId ] = useState('');
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const categoryId = location.state.categoryId;
-  const { searchQuery } = useSelector((state) => state.product);
+  const [productId, setProductId ] = useState('');
 
 
   useEffect(() => {
-    dispatch(getProducts({ categoryId , searchQuery }));
+    if (categoryId && categoryId) {
+    dispatch(getProducts({ categoryId }));
     dispatch(updateCategoryId(categoryId));
-  }, [dispatch, categoryId , searchQuery]);
+    }
+  }, [dispatch, categoryId ]);
 
-  useEffect(() => {
-    dispatch(getCategories());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getCategories());
+  // }, [dispatch]);
  
   const handleProductDetails = (productId) => {
     navigate('/admin/product-details',{state: { productId }})
@@ -44,6 +44,7 @@ const handleDeleteModalOpen = (productId) => {
   setDeleteModal(true);
   setProductId(productId);
 }
+
 
   return (
     <div className='MainPage'>
@@ -66,7 +67,7 @@ const handleDeleteModalOpen = (productId) => {
                 </div>
                 <div className='ProductSection'>
                   <div className='productDetails'>
-                    {product[0] && product?.map((products) => (
+                   { product[0] && product?.map((products)  => (
                       <div className='productCard' key={products._id} >
                         <div className='productCardImg' onClick={() => handleProductDetails(products._id)}>
                           <img src={`http://localhost:5001/${products.images[0]}`} alt="" />
@@ -85,7 +86,7 @@ const handleDeleteModalOpen = (productId) => {
                   </div>
                   {product?.length === 0 && <p className='NoProduct'>No Product found</p>}
                   {
-                    addModal && <AddProduct closeModal={() => setAddModal(false)} categoryID={ categoryId } />
+                    addModal && <AddProduct closeModal={() => setAddModal(false)} />
                   }
                   {
                     editModal && <EditProduct editModalClose={() => setEditModal(false)} productId={ productId } />

@@ -7,9 +7,12 @@ const UserCategory = () => {
     const dispatch = useDispatch();
     const { category, loading, error } = useSelector((state) => state.category);
     const navigate = useNavigate();
+
     useEffect(() => {
         dispatch(getCategories())
     }, [dispatch]);
+
+    
 
     const handleCategoryImageClick = (categoryId) => {
         navigate('/user/category/product', { state: { categoryId } });

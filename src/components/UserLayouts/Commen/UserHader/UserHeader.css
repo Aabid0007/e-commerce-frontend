@@ -6,6 +6,13 @@
 .headerList{
     flex: 1;
 }
+.headerLogo{
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 98px;
+}
 .headerList ul{
     display: flex;
     gap: 20px;
@@ -22,12 +29,21 @@
 .productCart{
     color: black;
     cursor: pointer;
+    position: relative;
 }
 .CartValue{
-    padding: 1px 6px;
     background: #FD8F5F;
     border-radius: 100px;
     color: #fff;
+    width: 19px;
+    justify-content: center;
+    align-items: center;
+    height: 19px;
+    position: absolute;
+    top: 14px;
+    left: 12px;
+    display: flex;
+    font-size: 15px;
 }
 .yourOrders{
     color: black;
@@ -50,4 +66,11 @@
 }
 .logoutBtn:hover{
     color: #FD8F5F;
+}
+.searchInput{
+    width: 200px;
+    height: 30px;
+    border: 1px solid gray;
+    border-radius: 10px;
+    padding: 5px;
 }

@@ -9,7 +9,7 @@ import Cookies from 'js-cookie'
 
 const UserProductDetails = () => {
     const { productById } = useSelector((state) => state.product);
-    console.log(productById);
+
     const location = useLocation();
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -19,7 +19,9 @@ const UserProductDetails = () => {
     const [mainImageIndex, setMainImageIndex] = useState(0);
 
     useEffect(() => {
-        dispatch(getProductById(productId))
+        if (productId) {
+            dispatch(getProductById(productId));
+        }
     }, [dispatch, productId]);
 
     const handleAddToCart = (productId) => {
@@ -36,47 +38,46 @@ const UserProductDetails = () => {
     };
 
     return (
-        <div className='PageSection'>
-            <div className='container'>
-                <div className='MainHeading'>
-                    <UserHeader />
-                </div>
-                <div className='productsDetails'>
-                    <div className='productsImages'> {productById && productById.images?.map((image, index) => (
-                        <img key={index} src={`http://localhost:5001/${image}`} onClick={() => handleThumbnailClick(index)} alt='' />
-                    ))}</div>
-                    <div className='productsSection'>
-                        <div className='productsImageSection'>
-
-                            {productById && productById.images && productById.images.length > 0 && (
-                                <div className='productsImg'>
-                                    <img src={`http://localhost:5001/${productById.images[mainImageIndex]}`} alt="" />
-                                </div>
-                            )}
-                        </div>
-                        <div className='productsContentSection'>
-                            <h3>{productById.name}</h3>
-                            <span>${productById.price}</span>
-                            <span>{productById.description}</span>
-                            <div className='productAction'>
-                                {!addedToCart[productById._id] ? (
-                                    <button
-                                        className='productCartBtn'
-                                        onClick={() => handleAddToCart(productById._id)}
-                                    >
-                                        Add to Cart
-                                    </button>
-                                ) : (
-                                    <button className='productCartBtn' onClick={() => handleAddedCart()} >
-                                        Added to Cart
-                                    </button>
+        <>
+            <UserHeader />
+            <div className='PageSection'>
+                <div className='container'>
+                    <div className='productsDetails'>
+                        <div className='productsImages'> {productById && productById.images?.map((image, index) => (
+                            <img key={index} src={`http://localhost:5001/${image}`} onClick={() => handleThumbnailClick(index)} alt='' />
+                        ))}</div>
+                        <div className='productsSection'>
+                            <div className='productsImageSection'>
+                                {productById && productById.images && productById.images.length > 0 && (
+                                    <div className='productsImg'>
+                                        <img src={`http://localhost:5001/${productById.images[mainImageIndex]}`} alt="" />
+                                    </div>
                                 )}
+                            </div>
+                            <div className='productsContentSection'>
+                                <h3>{productById.name}</h3>
+                                <span>${productById.price}</span>
+                                <span>{productById.description}</span>
+                                <div className='productAction'>
+                                    {!addedToCart[productById._id] ? (
+                                        <button
+                                            className='productCartBtn'
+                                            onClick={() => handleAddToCart(productById._id)}
+                                        >
+                                            Add to Cart
+                                        </button>
+                                    ) : (
+                                        <button className='productCartBtn' onClick={() => handleAddedCart()} >
+                                            Added to Cart
+                                        </button>
+                                    )}
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </>
     )
 }
 

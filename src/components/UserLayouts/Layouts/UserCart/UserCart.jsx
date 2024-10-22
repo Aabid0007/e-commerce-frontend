@@ -45,12 +45,11 @@ const UserCart = () => {
     }
 
     return (
+        <>
+        <UserHeader />
         <div className='MainPage'>
             <div className='PageSection'>
                 <div className='container'>
-                    <div className='MainHeading'>
-                        <UserHeader />
-                    </div>
                     <div className='cartSection'>
                         <div className='cartPage'>
                             <h2>Shopping Cart</h2>
@@ -112,6 +111,7 @@ const UserCart = () => {
                 </div>
             </div>
         </div>
+        </>
     );
 };
 
